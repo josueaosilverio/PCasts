@@ -96,6 +96,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
                     i.setClass(mContext, DetailActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     i.putExtra("title", rssObject.getItems().get(position).getTitle());
+                    i.putExtra("url", rssObject.getItems().get(position).enclosure.getLink());
                     i.putExtra("pubDate", rssObject.getItems().get(position).getPubDate());
                     String tempContent = rssObject.getItems().get(position).getContent();
                     tempContent = tempContent.replace("<p>", "");

@@ -96,7 +96,7 @@ public class Item {
         this.content = content;
     }
 
-    public Object getEnclosure() {
+    public Enclosure getEnclosure() {
         return enclosure;
     }
 
