@@ -1,24 +1,22 @@
 package com.example.josue.pcasts;
 
 import android.content.Intent;
-import android.media.AudioAttributes;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
 
 public class DetailActivity extends AppCompatActivity {
     Toolbar toolbar2;
-    Button playButton = (Button) findViewById(R.id.playButton);
-    final MediaPlayer mediaPlayer = new MediaPlayer();
+    MediaPlayer mediaPlayer;
+    TextView txtTitle, txtPubDate, txtContent;
+    String txtURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +31,17 @@ public class DetailActivity extends AppCompatActivity {
         String txtTit = intent.getStringExtra("title");
         String txtPD = intent.getStringExtra("pubDate");
         String txtCont = intent.getStringExtra("content");
-        String txtURL = intent.getStringExtra("url");
+        txtURL = intent.getStringExtra("url");
 
-        TextView txtTitle, txtPubDate, txtContent;
         txtTitle = (TextView) findViewById(R.id.txtTitleD);
         txtPubDate = (TextView) findViewById(R.id.txtPubDateD);
         txtContent = (TextView) findViewById(R.id.txtContentD);
-        txtTitle.setText(txtTit.toString());
-        txtPubDate.setText(txtPD.toString());
-        txtContent.setText(txtCont.toString());
+        txtTitle.setText(txtTit);
+        txtPubDate.setText(txtPD);
+        txtContent.setText(txtCont);
 
+        mediaPlayer = new MediaPlayer();
+        //mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
             mediaPlayer.setDataSource(txtURL);
         } catch (IOException e) {
@@ -53,21 +52,7 @@ public class DetailActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        View.OnClickListener clickPlay = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mediaPlayer.isPlaying()){
-                    mediaPlayer.stop();
-                    mediaPlayer.reset();
-                    mediaPlayer.seekTo(30000);
-                    mediaPlayer.start();
-                }else {
-                    mediaPlayer.seekTo(30000);
-                    mediaPlayer.start();
-                }
-            }
-        };
-        playButton.setOnClickListener(clickPlay);
+
 
     }
 
@@ -75,6 +60,17 @@ public class DetailActivity extends AppCompatActivity {
         mediaPlayer.reset();
         mediaPlayer.release();
         finish();
+    }
+
+    public void playMedia(View v) {
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.seekTo(30000);
+            mediaPlayer.start();
+        } else {
+            mediaPlayer.seekTo(30000);
+            mediaPlayer.start();
+        }
     }
 
     @Override

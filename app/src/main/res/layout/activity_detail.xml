@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.josue.pcasts.DetailActivity"
-    tools:layout_editor_absoluteY="25dp"
-    tools:layout_editor_absoluteX="0dp">
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="25dp">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -20,50 +20,49 @@
         android:id="@+id/txtTitleD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:layout_marginStart="16dp"
-        tools:layout_constraintTop_creator="1"
         android:layout_marginTop="71dp"
-        android:textSize="25sp"
         android:width="350dp"
-        tools:layout_constraintLeft_creator="1"
+        android:text="TextView"
+        android:textSize="25sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="16dp" />
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <TextView
         android:id="@+id/txtPubDateD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/txtTitleD"
         android:layout_marginTop="146dp"
-        android:textSize="15sp"
         android:width="350dp"
+        android:text="TextView"
         android:textAlignment="gravity"
-        tools:layout_constraintLeft_creator="1"
+        android:textSize="15sp"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="@+id/txtTitleD"
+        app:layout_constraintRight_toRightOf="@+id/txtTitleD"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="1.0" />
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <TextView
         android:id="@+id/txtContentD"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        app:layout_constraintRight_toRightOf="@+id/txtPubDateD"
         android:layout_marginTop="7dp"
-        android:textSize="20sp"
         android:width="350dp"
+        android:text="TextView"
         android:textAlignment="gravity"
+        android:textSize="20sp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="@+id/txtPubDateD"
+        app:layout_constraintRight_toRightOf="@+id/txtPubDateD"
         app:layout_constraintTop_toBottomOf="@+id/txtPubDateD"
         tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/txtPubDateD"
-        app:layout_constraintHorizontal_bias="1.0" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/playButton"
@@ -72,6 +71,7 @@
         android:layout_marginBottom="30dp"
         android:layout_marginEnd="34dp"
         android:clickable="true"
+        android:onClick="playMedia"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
