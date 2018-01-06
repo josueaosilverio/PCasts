@@ -18,6 +18,7 @@ import java.io.IOException;
 public class DetailActivity extends AppCompatActivity {
     Toolbar toolbar2;
     Button playButton = (Button) findViewById(R.id.playButton);
+    final MediaPlayer mediaPlayer = new MediaPlayer();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +43,37 @@ public class DetailActivity extends AppCompatActivity {
         txtPubDate.setText(txtPD.toString());
         txtContent.setText(txtCont.toString());
 
+        try {
+            mediaPlayer.setDataSource(txtURL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            mediaPlayer.prepare(); // might take long! (for buffering, etc)
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        View.OnClickListener clickPlay = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                    mediaPlayer.seekTo(30000);
+                    mediaPlayer.start();
+                }else {
+                    mediaPlayer.seekTo(30000);
+                    mediaPlayer.start();
+                }
+            }
+        };
+        playButton.setOnClickListener(clickPlay);
+
     }
 
     public void goBack() {
+        mediaPlayer.reset();
+        mediaPlayer.release();
         finish();
     }
 
