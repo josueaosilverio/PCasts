@@ -36,19 +36,22 @@ public class DetailActivity extends AppCompatActivity {
         txtTitle = (TextView) findViewById(R.id.txtTitleD);
         txtPubDate = (TextView) findViewById(R.id.txtPubDateD);
         txtContent = (TextView) findViewById(R.id.txtContentD);
+        txtTitle.setSelected(true);
         txtTitle.setText(txtTit);
         txtPubDate.setText(txtPD);
         txtContent.setText(txtCont);
 
+        //FIXME Scroll do texto
+
+
         mediaPlayer = new MediaPlayer();
-        //mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         try {
             mediaPlayer.setDataSource(txtURL);
         } catch (IOException e) {
             e.printStackTrace();
         }
         try {
-            mediaPlayer.prepare(); // might take long! (for buffering, etc)
+            mediaPlayer.prepare();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,9 +67,7 @@ public class DetailActivity extends AppCompatActivity {
 
     public void playMedia(View v) {
         if (mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
             mediaPlayer.seekTo(30000);
-            mediaPlayer.start();
         } else {
             mediaPlayer.seekTo(30000);
             mediaPlayer.start();
