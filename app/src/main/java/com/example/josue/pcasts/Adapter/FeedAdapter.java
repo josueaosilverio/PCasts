@@ -2,7 +2,6 @@ package com.example.josue.pcasts.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +10,8 @@ import android.widget.TextView;
 
 import com.example.josue.pcasts.DetailActivity;
 import com.example.josue.pcasts.Interface.ItemClickListener;
-import com.example.josue.pcasts.MainActivity;
-import com.example.josue.pcasts.Model.Feed;
 import com.example.josue.pcasts.Model.RSSObject;
 import com.example.josue.pcasts.R;
-
-import java.io.InputStream;
 
 /**
  * Created by josue on 03/01/2018.
@@ -31,9 +26,9 @@ class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
     public FeedViewHolder(View itemView) {
         super(itemView);
 
-        txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
-        txtPubDate = (TextView) itemView.findViewById(R.id.txtPubDate);
-        txtContent = (TextView) itemView.findViewById(R.id.txtContent);
+        txtTitle = itemView.findViewById(R.id.txtTitle);
+        txtPubDate = itemView.findViewById(R.id.txtPubDate);
+        txtContent = itemView.findViewById(R.id.txtContent);
 
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
@@ -58,8 +53,8 @@ class FeedViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
 
-    private RSSObject rssObject;
     private final Context mContext;
+    private RSSObject rssObject;
     private LayoutInflater inflater;
 
 
@@ -90,8 +85,6 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
             @Override
             public void onClick(View view, int position, boolean isLongClick) {
                 if (!isLongClick){
-                    //FIXME Resolver o crash do intent do browser
-                    //holder.txtContent.setText(rssObject.getItems().get(position).enclosure.getLink().toString());
                     Intent i = new Intent();
                     i.setClass(mContext, DetailActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

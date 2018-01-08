@@ -41,9 +41,6 @@ public class DetailActivity extends AppCompatActivity {
         txtPubDate.setText(txtPD);
         txtContent.setText(txtCont);
 
-        //FIXME Scroll do texto
-
-
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(txtURL);
