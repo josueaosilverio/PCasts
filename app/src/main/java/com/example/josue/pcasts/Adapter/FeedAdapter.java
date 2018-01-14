@@ -74,7 +74,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
     public void onBindViewHolder(final FeedViewHolder holder, int position) {
 
         holder.txtTitle.setText(rssObject.getItems().get(position).getTitle());
-        holder.txtPubDate.setText(rssObject.getItems().get(position).getTitle());
+        holder.txtPubDate.setText(rssObject.getItems().get(position).getPubDate());
         String tempContent = rssObject.getItems().get(position).getContent();
         tempContent = tempContent.replace("<p>", "");
         tempContent = tempContent.replace("</p>", "");

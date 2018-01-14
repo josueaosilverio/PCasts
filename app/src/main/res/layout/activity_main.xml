@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
     tools:context="com.example.josue.pcasts.MainActivity">
 
     <ProgressBar
@@ -11,12 +12,12 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:max="100"
-        android:backgroundTint="@android:color/white"
         android:layout_below="@+id/toolbar2"
+        android:layout_marginTop="-7dp"
+        android:backgroundTint="@android:color/white"
+        android:indeterminate="true"
         android:indeterminateTint="#3f51b5"
-        android:layout_marginTop="-7dp"/>
+        android:max="100" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
@@ -28,8 +29,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar2" />
+        android:layout_below="@+id/toolbar2"
+        android:padding="8dp" />
 </RelativeLayout>
