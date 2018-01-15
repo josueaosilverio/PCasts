@@ -1,8 +1,9 @@
 package com.example.josue.pcasts;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.josue.pcasts.Adapter.FeedAdapter;
 import com.example.josue.pcasts.Common.HTTPDataHandler;
@@ -18,14 +20,15 @@ import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-    RecyclerView recyclerView;
-    RSSObject rssObject;
-
     //Link do Feed
     private final String RSS_link = "http://contametudo.libsyn.com/rss";
     private final String RSS_to_Json_API = " https://api.rss2json.com/v1/api.json?rss_url=";
-
+    Toolbar toolbar;
+    RecyclerView recyclerView;
+    RSSObject rssObject;
+    TextView txtTitPod;
+    TextView txtAuthPod;
+    TextView txtDescPod;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar2);
-        toolbar.setTitle("Conta-me Tudo");
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -41,6 +44,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         loadRSS();
+
+        SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadRSS();
+            }
+        });
+
     }
 
     private void loadRSS() {
@@ -69,6 +81,13 @@ public class MainActivity extends AppCompatActivity {
                 FeedAdapter adapter = new FeedAdapter(rssObject, getBaseContext());
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
+                txtTitPod = (TextView) findViewById(R.id.txtTitPod);
+                txtAuthPod = (TextView) findViewById(R.id.txtAuthPod);
+                txtDescPod = (TextView) findViewById(R.id.txtDescPod);
+                txtTitPod.setText(rssObject.getFeed().getTitle());
+                txtAuthPod.setText(rssObject.getFeed().getAuthor());
+                txtDescPod.setText(rssObject.getFeed().getDescription());
             }
         };
 
@@ -79,9 +98,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
