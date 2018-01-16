@@ -8,7 +8,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,11 +17,12 @@ import com.example.josue.pcasts.Common.HTTPDataHandler;
 import com.example.josue.pcasts.Model.RSSObject;
 import com.google.gson.Gson;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     //Link do Feed
     private final String RSS_link = "http://contametudo.libsyn.com/rss";
     private final String RSS_to_Json_API = " https://api.rss2json.com/v1/api.json?rss_url=";
+    public SwipeRefreshLayout swipeRefreshLayout;
     Toolbar toolbar;
     RecyclerView recyclerView;
     RSSObject rssObject;
@@ -45,13 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
         loadRSS();
 
-        SwipeRefreshLayout mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadRSS();
-            }
-        });
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
 
     }
 
@@ -81,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 FeedAdapter adapter = new FeedAdapter(rssObject, getBaseContext());
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
 
                 txtTitPod = (TextView) findViewById(R.id.txtTitPod);
                 txtAuthPod = (TextView) findViewById(R.id.txtAuthPod);
@@ -104,9 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_refresh)
-            loadRSS();
-        return true;
+    public void onRefresh() {
+        loadRSS();
     }
 }

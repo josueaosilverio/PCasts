@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,7 +14,7 @@ import java.io.IOException;
 public class DetailActivity extends AppCompatActivity {
     Toolbar toolbar2;
     MediaPlayer mediaPlayer;
-    TextView txtTitle, txtPubDate, txtContent;
+    TextView txtTitle, txtPubDate, txtContent, txtDuration;
     String txtURL;
 
     @Override
@@ -24,22 +23,28 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         toolbar2 = (Toolbar) findViewById(R.id.toolbar);
-        toolbar2.setTitle("Conta-me Tudo");
+        toolbar2.setTitle("");
         setSupportActionBar(toolbar2);
 
         Intent intent = getIntent();
         String txtTit = intent.getStringExtra("title");
         String txtPD = intent.getStringExtra("pubDate");
         String txtCont = intent.getStringExtra("content");
+        Integer duration = intent.getIntExtra("duration", 0);
+        String duracao = secondsToString(duration);
+
+
         txtURL = intent.getStringExtra("url");
 
         txtTitle = (TextView) findViewById(R.id.txtTitleD);
         txtPubDate = (TextView) findViewById(R.id.txtPubDateD);
         txtContent = (TextView) findViewById(R.id.txtContentD);
+        txtDuration = (TextView) findViewById(R.id.txtDuration);
         txtTitle.setSelected(true);
         txtTitle.setText(txtTit);
         txtPubDate.setText(txtPD);
         txtContent.setText(txtCont);
+        txtDuration.setText("Duração: " + duracao);
 
         mediaPlayer = new MediaPlayer();
         try {
@@ -78,15 +83,12 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_back)
-            goBack();
-        return true;
+    public void onBackPressed() {
+        goBack();
     }
 
+    private String secondsToString(int pTime) {
+        return String.format("%02d:%02d", pTime / 60, pTime % 60);
+    }
 
 }
-
-
-
-
